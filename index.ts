@@ -1,0 +1,23 @@
+import express from 'express';
+import restaurantsRouter from './routes/restaurants.js';
+import cuisinesRouter from './routes/cuisines.js';
+import { errorHandler } from './middlewares/errorhandler.js';
+
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+
+app.use(express.json());
+app.use('/restaurants', restaurantsRouter);
+app.use('/cuisines', cuisinesRouter);
+
+app.use(errorHandler)
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}).on('error', (err) => {
+  console.error('Failed to start server:', err);
+});
+
+
